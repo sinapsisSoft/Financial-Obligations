@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>ST Dendrite</title>
+  <!-- Icons  -->
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="icon" type="image/png" href="../../img/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="../../img/favicon-96x96.png" sizes="96x96">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- Material Kit CSS -->
+  <link href="../../css/material-dashboard.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/quoteStyle.css">
+  <link href="../../css/styleUpload.css" rel="stylesheet" />
+  <style>
+    .btn-search {
+      padding: 12px !important;
+      margin-top: 20px !important;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body >
+  <div class="loadPage" id="loadPage"></div>
+  <div class="wrapper ">
+    <div class="sidebar" data-color="wine" data-background-color="white">
+      <div class="logo">
+        <a href="https://www.sinapsistechnologies.com.co/" target="_blank" class="simple-text logo-mini">
+          <img src="../../img/favicon-32x32.png">
+          DENDRITE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item   ">
+            <a class="nav-link" href="dashboard.html">
+              <i class="material-icons">home</i>
+              <p>Inicio</p>
+            </a>
+          </li>
+          <li class="nav-item active  ">
+            <a class="nav-link" href="#0">
+              <i class="material-icons">create</i>
+              <p>Crear Cotización</p>
+
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#pablo">Panel Administrativo</a>
+          </div>
+          <div class="navbar-wrapper user">
+            <a class="navbar-brand" href="#" id="labelName"></a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+          </button>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <div class="content">
+        <div class="container-fluid">
+          <!--Alert-->
+          <div id="myAlert"></div>
+          <!--Alert-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Cliente</h4>
+                </div>
+                <div class="card-body">
+                  <form id="form_quotation_client" action="" onSubmit="changeStatus(true);clearTable();return false;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">NIT</label>
+                          <input type="text" id="Client_identification" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Razón Social</label>
+                          <input type="text" id="Client_name" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="submit" class="btn btn-wine pull-right btn-search" data-toggle="modal"
+                          data-target="#searchModal"><i class="material-icons">search</i></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Detalle Cotización No. <label id="Quo_consec_label"
+                      class="codeQuotation"></label></h4>
+                </div>
+                <div class="card-body">
+                  <form id="form_quotation" action="" onSubmit="sendData(this.id);return false">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <input type="hidden" id="Quo_id">
+                          <input type="hidden" id="Client_id">
+                          <input type="hidden" id="Pro_id">
+                          <input type="hidden" id="User_id">
+                          <input type="hidden" id="Quo_consec">
+                          <input type="hidden" id="Stat_id" value="1">
+                          <label class="bmd-label-floating">Proyecto</label>
+                          <select id="Quo_project" class="custom-select custom-select-sm" onChange="projectType()" required>
+                            <option value='Anuario' selected>Anuario</option>
+                            <option value='Agenda'>Agenda</option>
+                            <option value='Libro'>Libro</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fecha</label>
+                          <input type="date" id="Quo_date" class="form-control" re>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Calendario</label>
+                          <select id="Quo_calendar" class="custom-select custom-select-sm" required>
+                            <option value='A' selected>A</option>
+                            <option value='B'>B</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Año</label>
+                          <input type="number" id="Quo_year" class="form-control" min="0">
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Versión</label>
+                          <input type="number" min="0" id="Quo_version" class="form-control" min="0">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">No Est 11</label>
+                          <input type="number" min="0" id="Quo_students" value="0" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cantidad</label>
+                          <input type="number" min="0" id="Quo_quantity" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Dimensiones</label>
+                          <select id="Quo_dimensions" class="custom-select custom-select-sm prequote" onchange="sizes()"
+                            required>
+                            <option value='20.5,27.5,Vertical'>20.5 x 27.5</option>
+                            <option value='27.5,20.5,Horizontal'>27.5 x 20.5</option>
+                            <option value='21.5,33,Vertical'>21.5 x 33</option>
+                            <option value='33,21.5,Horizontal'>33 x 21.5</option>
+                            <option value='20,20,Cuadrado'>20 x 20</option>
+                            <option value='13,20,Vertical'>13 x 20</option>
+                            <option value='20,13,Horizontal'>20 x 13</option>
+                            <option value='Otro'>Otro</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Tamaño</label>
+                          <div class="input-group">
+                            <input type="text" min="0" id="Quo_width" class="form-control" placeholder="Ancho"
+                              pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+                            <input type="text" min="0" id="Quo_height" class="form-control" placeholder="Alto"
+                              pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Formato</label>
+                          <select id="Quo_format" class="custom-select custom-select-sm" required>
+                            <option value='Vertical' selected>Vertical</option>
+                            <option value='Horizontal'>Horizontal</option>
+                            <option value='Cuadrado'>Cuadrado</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">No. Páginas
+                            Color</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cantidad</label>
+                          <input type="number" id="Quo_color" min="0" onchange="sumPage(1)" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Papel</label>
+                          <select id="Quo_colorPaper" class="form-control form-control-lg">
+                            <option value='Propalcote'>Propalcote</option>
+                            <option value='Bond'>Bond</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Gramaje</label>
+                          <select id="Quo_colorWeight" class="form-control form-control-lg">
+                            <option value='90'>90</option>
+                            <option value='115' selected>115</option>
+                            <option value='150'>150</option>
+                            <option value='180'>180</option>
+                            <option value='220'>220</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">No. Páginas B/N</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cantidad</label>
+                          <input type="number" id="Quo_bw" min="0" onchange="sumPage(1)" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Papel</label>
+                          <select id="Quo_bwPaper" class="form-control form-control-lg">
+                            <option value='Propalcote'>Propalcote</option>
+                            <option value='Bond'>Bond</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Gramaje</label>
+                          <select id="Quo_bwWeight" class="form-control form-control-lg">
+                            <option value='90'>90</option>
+                            <option value='115' selected>115</option>
+                            <option value='150'>150</option>
+                            <option value='180'>180</option>
+                            <option value='220'>220</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Guardas</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cantidad</label>
+                          <input id="Quo_guards" type="number" value="2" min="0" onchange="sumPage(1)"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Papel</label>
+                          <select id="Quo_guardsPaper" class="form-control form-control-lg">
+                            <option value='Propalcote'>Propalcote</option>
+                            <option value='Bond'>Bond</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Gramaje</label>
+                          <select id="Quo_guardsWeight" class="form-control form-control-lg">
+                            <option value='90'>90</option>
+                            <option value='115'>115</option>
+                            <option value='150' selected>150</option>
+                            <option value='180'>180</option>
+                            <option value='220'>220</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Portada</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cantidad</label>
+                          <input type="number" id="Quo_cover" value="2" min="0" onchange="sumPage(1)"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Papel</label>
+                          <select id="Quo_coverPaper" class="form-control form-control-lg">
+                            <option value='Propalcote'>Propalcote</option>
+                            <option value='Bond'>Bond</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Gramaje</label>
+                          <select id="Quo_coverWeight" class="form-control form-control-lg">
+                            <option value='90'>90</option>
+                            <option value='115'>115</option>
+                            <option value='150'>150</option>
+                            <option value='180'>180</option>
+                            <option value='220'>220</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Insertos</label>
+                          <select id="Quo_inserts" class="custom-select custom-select-sm" required>
+                            <option value='Si' selected>Si</option>
+                            <option value='No'>No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cantidad</label>
+                          <input type="number" id="Quo_inser" min="0" onchange="sumPage(1)"
+                            class="form-control prequote">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Papel</label>
+                          <select id="Quo_inserPaper" class="form-control form-control-lg prequote">
+                            <option value='Propalcote'>Propalcote</option>
+                            <option value='Bond'>Bond</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Gramaje</label>
+                          <select id="Quo_inserWeight" class="form-control form-control-lg prequote">
+                            <option value='90'>90</option>
+                            <option value='115'>115</option>
+                            <option value='150'>150</option>
+                            <option value='180'>180</option>
+                            <option value='220'>220</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Tapa</label>
+                          <select id="Quo_top" class="custom-select custom-select-sm" required>
+                            <option value='Dura' selected>Dura</option>
+                            <option value='Rústica'>Rústica</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Acabados
+                            carátula</label>
+                          <select id="Quo_coverFinish" class="custom-select custom-select-sm" required>
+                            <option value='Brillo uv' selected>Brillo uv</option>
+                            <option value='Troquel'>Troquel</option>
+                            <option value='Brillo uv-Troquel'>Brillo uv - Troquel</option>
+                            <option value='Ninguno'>Ninguno</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Plastificado</label>
+                          <select id="Quo_plast" class="custom-select custom-select-sm" required>
+                            <option value='Mate' selected>Mate</option>
+                            <option value='Brillante'>Brillante</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">Corrección de
+                            estilo</label>
+                          <select id="Quo_correction" class="custom-select custom-select-sm" required>
+                            <option value='Si' selected>Si</option>
+                            <option value='No'>No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating text-wine">ISSN/ISBN</label>
+                          <select id="Quo_issn" class="custom-select custom-select-sm" required>
+                            <option value='Si' selected>Si</option>
+                            <option value='No'>No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Observaciones</label>
+                          <input id="Quo_observ" type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Lugar de entrega</label>
+                          <input type="text" id="Quo_delivPlace" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fecha de entrega</label>
+                          <input type="date" id="Quo_delivDate" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Total de páginas</label>
+                          <input type="number" id="Quo_pageTotal" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-center">
+                        <button type="submit" class="btn btn-wine ">Guardar</button>
+                        <div id="btn-action" class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                          <button type="button" class="btn btn-danger" onclick="preViewPdf()" title="Visualizar PDF"><i
+                              class="material-icons">visibility</i></button>
+                          <button type="button" class="btn btn-primary" onclick="sendMail()" title="Enviar PDF"><i
+                              class="material-icons">send</i></button>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Proveedor</h4>
+                </div>
+                <div class="card-body">
+                  <form id="form_quotation_provider" action=""
+                    onSubmit="changeStatus(false);clearTable();return false;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">NIT</label>
+                          <input type="text" id="Pro_identification" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Razón Social</label>
+                          <input type="text" id="Pro_name" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="submit" class="btn btn-wine pull-right btn-search" data-toggle="modal"
+                          data-target="#searchModal"><i class="material-icons">search</i></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="copy_right">
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <p class="copyright">Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          | Sinapsis Technologies. </p>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+      </div>
+    </div>
+  </footer>
+  </div>
+  </div>
+  <!-- Button trigger modal -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchModalLabel">Buscador</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form_quotation_client" action=""
+            onSubmit="searchClientProvider('Search_user',event,booValidatorCliPro);return false">
+            <div class="row">
+              <div class="col-md-11">
+                <div class="form-group">
+                  <label class="bmd-label-floating">NIT o Razón Social</label>
+                  <input type="text" id="Search_user" class="form-control  form-control-sm">
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button type="submit" class="btn btn-wine pull-right btn-search"><i
+                    class="material-icons">search</i></button>
+              </div>
+            </div>
+          </form>
+          <div class="table-responsive">
+            <table class="table" id="tableSearch">
+              <thead>
+                <tr>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="clearTable()" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal"
+            onclick="getDataTable('tableSearch')">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Script -->
+  <script src="../../js/jquery-3.4.1.min.js"></script>
+  <script src="../../js/popper.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/functionsSite.js"></script>
+  <script src="../../js/Storage.js"></script>
+  <script src="../../js/table.js"></script>
+  <script src="js/quote.js"></script>
+  <script>
+    window.onload = getAction;
+  </script>
+
+  <!--End Script -->
+</body>
+
+</html>

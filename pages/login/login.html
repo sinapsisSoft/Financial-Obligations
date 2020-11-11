@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Renting automayor</title>
+  <!-- Icons  -->
+  <link rel="shortcut icon" href="https://pbs.twimg.com/profile_images/1039259640066924545/UBXkipGD_400x400.jpg">
+  <link rel="icon" type="image/png" href="https://pbs.twimg.com/profile_images/1039259640066924545/UBXkipGD_400x400.jpg" sizes="16x16" />
+  <link rel="icon" type="image/png" href="https://pbs.twimg.com/profile_images/1039259640066924545/UBXkipGD_400x400.jpg" sizes="32x32" />
+  <link rel="icon" type="image/png" href="https://pbs.twimg.com/profile_images/1039259640066924545/UBXkipGD_400x400.jpg" sizes="96x96">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" />
+  <link rel="stylesheet" href="css/styleLogin.css">
+  <link href="../../css/styleUpload.css" rel="stylesheet" />
+  <style>
+
+  </style>
+
+</head>
+<!--Coded with love by Mutiullah Samim-->
+
+<body>
+    <div class="loadPage" id="loadPage"></div>
+  <div class="container h-100">
+    
+    <div class="d-flex justify-content-center h-100">
+      <div class="user_card">
+        <div class="d-flex justify-content-center">
+          <div class="brand_logo_container">
+            <img src="https://pbs.twimg.com/profile_images/1039259640066924545/UBXkipGD_400x400.jpg" class="brand_logo" alt="Logo">
+          </div>
+        </div>
+        <div class="d-flex justify-content-center form_container">
+          <form id="form_login" onsubmit="sendData(this.id);return false">
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+              <input type="email" id="User_email" name="" class="form-control input_user" value="" placeholder="Usuario"
+                required>
+            </div>
+            <div class="input-group mb-2">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <input type="password" id="Login_password" name="" class="form-control input_pass" value=""
+                placeholder="Contraseña" required>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customControlInline">
+                <label class="custom-control-label" for="customControlInline">Recordar</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="d-flex justify-content-center mt-3 login_container">
+          <button type="submit" form="form_login" name="button" class="btn login_btn">Iniciar sesión</button>
+        </div>
+        <div class="mt-4">
+
+          <div class="d-flex justify-content-center links">
+            <a href="recover_password.html">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Alert-->
+    <div id = "myAlert"></div>
+      <!--Alert-->
+    <!--Footer-->
+    <footer class="footer">
+
+      <div class="d-flex justify-content-center h-100">
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <p class="copyright">Copyright &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          | Renting Automayor. </p>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+      </div>
+    </footer>
+    <!--Footer-->
+    
+    
+  </div>
+
+  <!--Script-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="../../js/functionsSite.js"></script>
+  <script src="../../js/Storage.js"></script>
+  <script src="js/login.js"></script> 
+  <!--Script-->
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+input[type="file"]{
+    margin: 0 0 15px;
+    padding: 10px 1%;
+    border-radius: 3px; 
+  }
+  .bar-start{
+    background-color: transparent;
+    border-radius: 10px;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    width: 0%; 
+  }
+  .bar-blue{
+    background-color: blue;
+    border-radius: 10px;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    width: 0%; 
+  }
+  .bar-green{
+    background-color: green !important;
+
+  }
+  .bar-red{
+    background-color: red !important;
+
+  }
+  .bar{
+    background-color:transparent;
+    border-radius: 5px;
+    height: 25px; 
+  }
+  #bar_status span{
+    color: #fff;
+    font-weight: bold;
+    line-height: 25px;
+    text-align: center;
+  }
+  .loadPage {
+    width: 100%;
+    background:#3115157a;
+    position: fixed;
+    z-index: 2000;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  
+    
+  }
+  .block {
+position: relative;
+box-sizing: border-box;
+float: left;
+margin: 25% 10px 10px 0;
+width: 40px;
+height: 50px;
+border-radius: 3px;
+background: #fafafa;
+left: 45%;
+}
+
+.block:nth-child(4n+1) { animation: wave 2s ease .0s infinite; }
+.block:nth-child(4n+2) { animation: wave 2s ease .2s infinite; }
+.block:nth-child(4n+3) { animation: wave 2s ease .4s infinite; }
+.block:nth-child(4n+4) { animation: wave 2s ease .6s infinite; margin-right: 0; }
+
+@keyframes wave {
+0%   { top: 0;     opacity: 1; }
+50%  { top: 30px;  opacity: .2; }
+100% { top: 0;     opacity: 1; }
+}
+
+.my-custom-scrollbar {
+  max-height: 500px;  
+  font-size: 0.90rem;
+  scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar:vertical {
+  width:10px;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 10px;
+}

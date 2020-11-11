@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>ST Dendrite</title>
+  <!-- Icons  -->
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="icon" type="image/png" href="../../img/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="../../img/favicon-96x96.png" sizes="96x96">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- Material Kit CSS -->
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link href="../../css/material-dashboard.css" rel="stylesheet" />
+  <link href="../../css/styleUpload.css" rel="stylesheet" />
+
+  <style>
+    /*
+Full screen Modal 
+*/
+    .modal-dialog {
+      max-width: 85% !important;
+
+    }
+  </style>
+</head>
+
+<body>
+    <div class="loadPage" id="loadPage"></div>
+  <div class="wrapper ">
+    <div class="sidebar" data-color="wine" data-background-color="white">
+      <div class="logo">
+        <a href="https://www.sinapsistechnologies.com.co/" target="_blank" class="simple-text logo-mini">
+          <img src="../../img/favicon-32x32.png">
+          DENDRITE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item   ">
+            <a class="nav-link" href="../quote/dashboard.html">
+              <i class="material-icons">home</i>
+              <p>Inicio</p>
+            </a>
+          </li>
+          <li class="nav-item active  ">
+            <a class="nav-link" href="customers.html">
+              <i class="material-icons">account_circle</i>
+              <p>Clientes</p>
+            </a>
+          </li>
+          <!-- your sidebar here -->
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand">Panel Administrativo</a>
+            <input type="hidden" id="User_id">
+          </div>
+          <div class="navbar-wrapper user">
+              <a class="navbar-brand" href="#" id="labelName"></a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+          </button>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 align-self-center">
+              <form class="navbar-form" id="formSearchCustomer">
+                <div class="input-group no-border">
+                  <input type="text" value="" class="form-control" placeholder="Cliente a buscar" required>
+                  <button type="submit" class="btn btn-white btn-round btn-just-icon" onclick="searchCustomer(event);return false">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!--Alert-->
+          <div id="myAlert"></div>
+          <!--Alert-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Nuestros clientes</h4>
+                  <p class="card-category"> Encuentre aquí todos sus clientes</p>
+                  <div class="fixed-bottom ml-3">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#customerModal" onclick="clearForm('form_customers', 1);newClient()"><i
+                        style="font-size: 2.1rem;" class="material-icons">person_add</i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table id="tableCustomers" class="table">
+                      <thead class=" text-wine">
+                        <th>Cliente</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Contacto</th>
+                        <th>Editar</th>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copy_right">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <p class="copyright">Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              | Sinapsis Technologies. </p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- Modal -->
+
+  <div class="modal fade fullscreen-modal" id="customerModal" tabindex="-1" role="dialog"
+    aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customerModalLabel">Cliente </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <form id="form_customers" onsubmit="sendData(this.id,event);return false">
+              <input type="hidden" id="Client_id">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">NIT</label>
+                    <input type="text" id="Client_identification" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Razón Social</label>
+                    <input type="text" id="Client_name" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Dirección</label>
+                    <input type="text" id="Client_address" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Teléfono</label>
+                    <input type="number" id="Client_tel" class="form-control" min="0">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">E-mail</label>
+                    <input type="email" id="Client_email" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Nombre del contacto</label>
+                    <input type="text" id="Client_contactName" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Cargo</label>
+                    <input type="text" id="Client_contactTitle" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Teléfono de contacto</label>
+                    <input type="number" id="Client_contactTel" class="form-control" min="0" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Celular de contacto</label>
+                    <input type="number" id="Client_contactCel" class="form-control" min="0">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">E-mail de contacto</label>
+                    <input type="email" id="Client_contactEmail" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Estado</label>
+                    <select id="Stat_id" class="custom-select custom-select-sm" required>
+                     
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-wine pull-right" value="Submit" form="form_customers">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Script-->
+
+
+  <script src="../../js/jquery-3.4.1.min.js"></script>
+  <script src="../../js/popper.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/functionsSite.js"></script>
+  <script src="../../js/Storage.js"></script>
+  <script src="../../js/table-filter.js"></script>
+  <script src="../../js/table.js"></script>
+  <script src="../../js/selectList.js"></script>
+  <script src="js/customers.js"></script>
+  <script>
+    window.onload = loadView
+  </script>
+
+  <!--Script-->
+</body>
+
+
+</html>

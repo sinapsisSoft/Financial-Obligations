@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>ST Dendrite</title>
+  <!-- Icons  -->
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="icon" type="image/png" href="../../img/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="../../img/favicon-96x96.png" sizes="96x96">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- Material Kit CSS -->
+  <link href="../../css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+  <link href="../../css/styleUpload.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/costing.css">
+  <link href="../../css/styleUpload.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="loadPage" id="loadPage"></div>
+  <div class="wrapper ">
+    <div class="sidebar" data-color="wine" data-background-color="white">
+      <div class="logo">
+        <a href="https://www.sinapsistechnologies.com.co/" target="_blank" class="simple-text logo-mini">
+          <img src="../../img/favicon-32x32.png">
+          DENDRITE
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item   ">
+            <a class="nav-link" href="../quote/dashboard.html">
+              <i class="material-icons">reply</i>
+              <p>Volver</p>
+            </a>
+          </li>
+          <li class="nav-item active  ">
+            <a class="nav-link">
+              <i class="material-icons">assessment</i>
+              <p>Costeo</p>
+            </a>
+          </li>
+
+
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand">Panel Administrativo</a>
+            <input type="hidden" id="User_id">
+            <input type="hidden" id="Stat_id">            
+          </div>
+          <div class="navbar-wrapper user">
+            <a class="navbar-brand" href="#" id="labelName"></a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <!--Alert-->
+          <div id="myAlert"></div>
+          <!--Alert-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <input type="hidden" id="Quo_id" class="costing">
+                  <h4 class="card-title">Costeo </h4>
+                  <div class="fixed-bottom ml-3">
+                    <div class="col-md-2" style="text-align: left;">
+                      <div class="form-group">
+                        <div><a id="href_pro_attach" class="btn btn-danger" href="" target="_blank"><i class="material-icons"
+                             >picture_as_pdf</i></a></div>
+                             <input type="hidden" id="Cost_attach" class="costing">
+                      </div>
+                    </div>                    
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form id="form_Quo_Info">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Cotización No.</label>
+                          <input type="text" id="Quo_consec" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fecha</label>
+                          <input type="date" id="Quo_date" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Imprenta</label>
+                          <input type="text" id="Pro_name" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Valor Total</label>
+                          <input type="text" min=0 id="Cost_totalValue" class="form-control costing number"
+                            onchange="getDataTest()">                      
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-body">
+
+                  <form id="form-file" action="" accept=".pdf,application/pdf"
+                    onsubmit="validatorBtnFile(this.id, event)">
+
+                    <div class="form-1-2 col-6">
+                      <label>Adjuntar cotización:</label><br>
+                      <input type="file" id="getFile" name="nameFile">
+                    </div>
+                    <div class="bar col-12">
+                      <div class="bar-start" id="bar_status">
+                        <span id="spanFile"></span>
+                      </div>
+                    </div>
+                    <div class="actions col-6">
+                      <button type="submit" class="btn btn-info"><i class="material-icons">cloud_upload</i></button>
+                      <button type="button" id="cancel" class="btn btn-danger cancel" disabled><i
+                          class="material-icons">cloud_off</i></button>
+                    </div>
+                    <input type="hidden" id="nameFiles" value="" name="name_file">
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Costeo</h4>
+                  <p class="card-category">Servicios Trivia Editores - Diagramación</p>
+                </div>
+                <div class="card-body">
+                  <form id="form_costing_detail">
+                    <div class="row">
+                      <table class="table table-hover values">
+                        <thead>
+                          <tr class="center">
+                            <th colspan="2" scope="col"><b>Item</b></th>
+                            <th scope="col"><b>Cantidad</b></th>
+                            <th scope="col"><b>Valor Unitario</b></th>
+                            <th scope="col"><b>Valor Total</b></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colspan="2">Páginas</td>
+                            <td><input type="number" id="Quo_pageTotal" class="form-control" disabled></td>
+                            <td><input type="text" min=0 id="Cost_pagValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="pageTotal" class="form-control Totcosting_detail number"
+                                disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">Impresiones</td>
+                            <td><input type="number" min=0 id="Cost_impQuantity" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_impValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="impTotal" class="form-control Totcosting_detail number"
+                                disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">Fotografía</td>
+                            <td><input type="number" min=0 id="Cost_phoQuantity" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_phoValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="phoTotal" class="form-control Totcosting_detail number"
+                                disabled></td>
+                          </tr>
+                          <tr>
+                            <td>ISSN/ISBN </td>
+                            <td><select id="Quo_issn" class="custom-select custom-select-sm">
+                                <option value="Si">SI</option>
+                                <option value="No">NO</option>
+                              </select>
+                            </td>
+                            <td><input type="number" min=0 id="Cost_issnQuantity" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_issnValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="issnTotal" class="form-control Totcosting_detail number"
+                                disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">Envío</td>
+                            <td><input type="number" min=0 id="Cost_sendQuantity" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_sendValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="sendTotal" class="form-control Totcosting_detail number"
+                                disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">Fotografía Estudios</td>
+                            <td><input type="number" min=0 id="Quo_students" class="form-control costing" onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_stuValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="stuTotal" class="form-control Totcosting_detail number"
+                                disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="4">SUBTOTAL</td>
+                            <td><input type="text" min=0 id="tot_costing_detail" class="form-control number" disabled></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Costeo Final</h4>
+                </div>
+                <div class="card-body">
+                  <form id="form_final_costing">
+                    <div class="row">
+                      <table class="table table-hover values1">
+                        <thead>
+                          <tr class="center">
+                            <th scope="col"><b>Item</b></th>
+                            <th scope="col"><b>Incremento</b></th>
+                            <th scope="col"><b>Valor Unitario</b></th>
+                            <th scope="col"><b>Valor Total</b></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Impresión</td>
+                            <td><input type="number" min=0 id="totalValueQuantity" value="1" class="form-control"
+                                onchange="getDataTest();" disabled></td>
+                            <td><input type="text" min=0 id="Cost_totalValue1" class="form-control number"
+                                disabled></td>
+                            <td><input type="text" min=0 id="totalvalue" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Edición</td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="text" min=0 id="tot_costing_detail1"
+                                class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Administración</td>
+                            <td><input type="number" min=0 id="Cost_admin" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="tot_costing_detail2"
+                                class="form-control number" disabled></td>
+                            <td><input type="text" min=0 id="tot_admin" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Utilidad</td>
+                            <td><input type="number" min=0 id="Cost_utili" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="tot_costing_detail3"
+                                class="form-control number" disabled></td>
+                            <td><input type="text" min=0 id="tot_utili" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Imprevistos</td>
+                            <td><input type="number" min=0 id="Cost_incid" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="tot_costing_detail4"
+                                class="form-control number" disabled></td>
+                            <td><input type="text" min=0 id="tot_incid" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Viáticos</td>
+                            <td><input type="number" min=0 id="Cost_perQuantity" class="form-control costing"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_perValue" class="form-control costing number"
+                                onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="perTotal" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="3">VALOR TOTAL</td>
+                            <td><input type="text" min=0 id="Cost_finalValue" class="form-control costing number" disabled>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Resumen</h4>
+                </div>
+                <div class="card-body">
+                  <form id="form_resume">
+                    <div class="row">
+                      <table class="table table-hover values1">
+                        <thead>
+                          <tr class="center">
+                            <th scope="col"><b>Cantidad</b></th>
+                            <th scope="col"><b>Valor Unitario</b></th>
+                            <th scope="col"><b>Valor Total</b></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><input type="number" min=0 id="Quo_quantity" class="form-control" disabled></td>
+                            <td><input type="text" min=0 id="valueIndividual" class="form-control number" disabled></td>
+                            <td><input type="text" min=0 id="totValue" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2" class="center total"><b>UTILIDAD TOTAL DEL PROYECTO </b></td>
+                            <td><input type="text" min=0 id="Cost_finalUtility" class="form-control number" disabled></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-yellow">
+                  <h4 class="card-title">Gastos Operacionales</h4>
+                </div>
+                <div class="card-body">
+                  <form id="form_photography">
+                    <div class="row">
+                      <table class="table table-hover values1">
+                        <thead>
+                          <tr class="center">
+                            <th scope="col"><b>Item</b></th>
+                            <th scope="col"><b>Cantidad</b></th>
+                            <th scope="col"><b>Valor Unitario</b></th>
+                            <th scope="col"><b>Valor Total</b></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Estudios de Once</td>
+                            <td><input type="number" min=0 id="Quo_students1" class="form-control" disabled></td>
+                            <td><input type="text" min=0 id="Cost_stuValue1" class="form-control costing number" onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="totStudy" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Días de Fotografía</td>
+                            <td><input type="number" min=0 id="Cost_daysQuantity" class="form-control costing" onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="Cost_daysValue" class="form-control costing number"  onchange="getDataTest();"></td>
+                            <td><input type="text" min=0 id="totDays" class="form-control number" disabled></td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" class="center total"><b>TOTAL GASTOS OPERACIONALES</b></td>
+                            <td><input type="text" min=0 id="totUtility" class="form-control number" disabled></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>                    
+                  </form> 
+                  <button type="submit" class="btn btn-wine pull-right" value="Submit"
+                    onclick="sendData(event);return false;">Guardar</button>
+                  <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#descriptionModal">
+                    <i style="font-size: 2.1rem;" class="material-icons">subject</i></button>                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copy_right">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <p class="copyright">Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              | Sinapsis Technologies. </p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade fullscreen-modal" id="descriptionModal" tabindex="-1" role="dialog"
+    aria-labelledby="descriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="descriptionModalLabel">Descripción</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <form id="form_description">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Escriba lo que incluye la oferta</label>
+                    <textarea rows="7" id="Cost_description" class="form-control costing read"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-wine pull-righ" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Fin Modal -->
+  <!--Script -->
+  <script src="../../js/jquery-3.4.1.min.js"></script>
+  <script src="../../js/popper.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/functionsSite.js"></script>
+  <script src="../../js/Storage.js"></script>
+  <script src="../../js/table.js"></script>
+  <script src="js/costing.js"></script>
+  <!--End Script -->
+  <script>
+    window.onload = getAction;
+  </script>
+</body>
+
+</html>

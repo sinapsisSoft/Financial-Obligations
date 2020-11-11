@@ -1,0 +1,23 @@
+.center {
+  text-align: center;
+}
+
+.values td {
+  width: 20%;
+}
+
+.values1 td {
+  width: 25%;
+}
+
+.total {
+  font-size: 16px;
+}
+
+input[type=number] {
+  text-align: right;
+}
+
+.number {
+  text-align: right;
+}
