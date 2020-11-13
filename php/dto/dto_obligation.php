@@ -1,4 +1,4 @@
-<?php
+<?php 
 #Author: cristian malaver
 #Date: 30/10/2020
 #Description : Is DTO obligation
@@ -58,7 +58,7 @@ class DtoObligation
         $this->obligation_cod = $obligationCod;
     }
 
-    public function __setUpdateObligation($nitMaximo, $ClientName, $clientContract, $clientContractName, $bank, $typeCredit, $typeInteres, $typeAmortization, $desembolsoDate, $initialValue, $cuotesNumber, $residualNumber, $dtf, $dtfPoints, $ibr, $ibrPoints, $tasafija, $status)
+    public function __setUpdateObligation($nitMaximo, $ClientName, $clientContract, $clientContractName, $bank, $typeCredit, $typeInteres, $typeAmortization, $desembolsoDate, $initialValue, $cuotesNumber, $residualNumber, $dtf, $dtfPoints, $ibr, $ibrPoints, $tasafija, $status,$obligationCod)
     {
         $this->client_idmax = $nitMaximo;
         $this->client_name = $ClientName;
@@ -78,14 +78,13 @@ class DtoObligation
         $this->ibr_points = $ibrPoints;
         $this->tasafija = $tasafija;
         $this->Stat_id = $status;
-        //$this->obligation_cod = $obligationCod;
+        $this->obligation_cod = $obligationCod;
 
     }
 
     public function __getObligation()
     {
         $objObligation = new DtoObligation();
-        $objObligation->__getId();
         $objObligation->__getPassword();
         $objObligation->__getObligation_id();
         $objObligation->__getClient_idmax();
@@ -113,6 +112,11 @@ class DtoObligation
 
 
     //SET OBLIGATION
+    
+    public function __setCod($code)
+    {
+        $this->obligation_cod = $code;
+    }
     public function __setId($id)
     {
         $this->Bank_id = $id;
@@ -122,10 +126,7 @@ class DtoObligation
         $this->Bank_name = $name;
     }
     //GET OBLIGATION
-    public function __getId()
-    {
-        return $this->Bank_id;
-    }
+    
     public function __getUser()
     {
         return $this->user;

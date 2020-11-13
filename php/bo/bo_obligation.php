@@ -1,4 +1,4 @@
-<?php
+<?php 
 #Author: cristian malaver
 #Date: 30/10/2020
 #Description : Is BO obligation
@@ -30,16 +30,28 @@ public function newObligation($nitMaximo,$ClientName,$clientContract,$clientCont
     return $intValidate; 
 }
 #Description: Function for update a new obligation
-public function updateObligation($nitMaximo,$ClientName,$clientContract,$clientContractName,$bank,$typeCredit,$typeInteres,$typeAmortization,$desembolsoDate,$initialValue,$cuotesNumber,$residualNumber,$dtf,$dtfPoints,$ibr,$ibrPoints,$tasafija,$status)
+public function updateObligation($nitMaximo,$ClientName,$clientContract,$clientContractName,$bank,$typeCredit,$typeInteres,$typeAmortization,$desembolsoDate,$initialValue,$cuotesNumber,$residualNumber,$dtf,$dtfPoints,$ibr,$ibrPoints,$tasafija,$status,$obligationCod)
 {
     try {
-        $this->objObligation->__setUpdateObligation($nitMaximo,$ClientName,$clientContract,$clientContractName,$bank,$typeCredit,$typeInteres,$typeAmortization,$desembolsoDate,$initialValue,$cuotesNumber,$residualNumber,$dtf,$dtfPoints,$ibr,$ibrPoints,$tasafija,$status);
+        $this->objObligation->__setUpdateObligation($nitMaximo,$ClientName,$clientContract,$clientContractName,$bank,$typeCredit,$typeInteres,$typeAmortization,$desembolsoDate,$initialValue,$cuotesNumber,$residualNumber,$dtf,$dtfPoints,$ibr,$ibrPoints,$tasafija,$status,$obligationCod);
         $intValidate = $this->objDao->updateObligation($this->objObligation);
     } catch (Exception $e) {
         echo 'Exception captured: ', $e->getMessage(), "\n";
         $intValidate = 0;
     }
     return $intValidate;
+}
+#Description: Function for create a new obligation
+public function deleteObligation($obligationCod)
+{
+    try {
+        $this->objObligation->__setCod($obligationCod);
+        $intValidate = $this->objDao->deleteObligation($this->objObligation);
+    } catch (Exception $e) {
+        echo 'Exception captured: ', $e->getMessage(), "\n";
+        $intValidate = 0;
+    }
+    return $intValidate; 
 }
 /*
 #Description: Function for select Clients
@@ -128,10 +140,10 @@ if (isset($data->POST)) {
       echo $obj->newObligation($data->nitMaximo,$data->ClientName, $data->clientContract, $data->clientContractName,$data->bank, $data->typeCredit, $data->typeInteres, $data->typeAmortization,$data->desembolsoDate, $data->initialValue, $data->cuotesNumber, $data->residualNumber,$data->dtf,$data->dtfPoints,$data->ibr,$data->ibrPoints,$data->tasafija,$data->status,$data->obligationCod  );
   }
   if ($data->POST == "POST_UPDATE") {
-    echo $obj->updateObligation($data->nitMaximo,$data->ClientName, $data->clientContract, $data->clientContractName,$data->bank, $data->typeCredit, $data->typeInteres, $data->typeAmortization,$data->desembolsoDate, $data->initialValue, $data->cuotesNumber, $data->residualNumber,$data->dtf,$data->dtfPoints,$data->ibr,$data->ibrPoints,$data->tasafija,$data->status  );
+    echo $obj->updateObligation($data->nitMaximo,$data->ClientName, $data->clientContract, $data->clientContractName,$data->bank, $data->typeCredit, $data->typeInteres, $data->typeAmortization,$data->desembolsoDate, $data->initialValue, $data->cuotesNumber, $data->residualNumber,$data->dtf,$data->dtfPoints,$data->ibr,$data->ibrPoints,$data->tasafija,$data->status,$data->obligationCod  );
 }
 if ($data->POST == "POST_DELETE") {
-  echo $obj->newObligation($data->nitMaximo,$data->ClientName, $data->clientContract, $data->clientContractName,$data->bank, $data->typeCredit, $data->typeInteres, $data->typeAmortization,$data->desembolsoDate, $data->initialValue, $data->cuotesNumber, $data->residualNumber,$data->dtf,$data->dtfPoints,$data->ibr,$data->ibrPoints,$data->tasafija,$data->status,$data->obligationCod  );
+  echo $obj->deleteObligation($data->obligationCod );
 }
 }
 
@@ -152,5 +164,6 @@ if (isset($data->GET)) {
 
 }
 /**********************/
-echo $obj->updateObligation('9000141416', 'H UJUETA', 'CCP018222', 'H UJUETA', '1', '1', '1', '2', '2020-08-14', '149531321', '48', '71928700', '3.14', '2',"0" ,"0", "0", 3); 
+//echo $obj->deleteObligation('WDQWD34'); 
+//echo $obj->updateObligation('11141346111', 'Holas6456asa', 'CCP1dfsd1111', 'Holdfsa', '2', '2', '2', '2', '2020-08-15', '111121121', '41', '711928700', '0', '0',"3" ,"2", "0", 3,'WDQWD34'); 
 //echo $obj->selectClientMaximo($user, $password); 

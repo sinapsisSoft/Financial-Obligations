@@ -1,4 +1,4 @@
-<?php
+<?php 
 #Author: ristian Malaver
 #Date: 30/10/2020
 #Description : Is DAO Obligation
@@ -176,35 +176,53 @@ class DaoObligation
       $con = $this->objConntion->connect();
       $con->query("SET NAMES 'utf8'");
       if ($con != null) {
-        $dataObligation = "'" . $objObligation->__getClient_idmax() . "','" .
-          $objObligation->__getClient_name() . "','" .
-          $objObligation->__getClient_contract() . "','" .
-          $objObligation->__getClient_contract_name() . "','" .
-          $objObligation->__getBank_id() . "','" .
-          $objObligation->__getCredit_type_id() . "','" .
-          $objObligation->__getInteresting_type_id() . "','" .
-          $objObligation->__getAmortization_type_id() . "','" .
-          $objObligation->__getDesembolso_date() . "','" .
-          $objObligation->__getInitial_value() . "','" .
-          $objObligation->__getCuotes_number() . "','" .
-          $objObligation->__getResidual_number() . "','" .
-          $objObligation->__getDtf() . "','" .
-          $objObligation->__getDtf_points() . "','" .
-          $objObligation->__getIbr() . "','" .
-          $objObligation->__getIbr_points() . "','" .
-          $objObligation->__getTasafija() . "','" .
-          $objObligation->__getStat_id() . "','" ;
-         // $objObligation->__getObligation_cod() . "'";
-         if ($con->query(
-         ' UPDATE `obligation` 
-SET `client_idmax`,`client_name`,`client_contract`,
-`client_contract_name`,`Bank_id`,`credit_type_id`,`interesting_type_id`,
-`amortization_type_id`,`desembolso_date`,`initial_value`,`cuotes_number`,
-`residual_number`,`dtf`,`dtf_points`,`ibr`,`ibr_points`,`tasafija`,`Stat_id` 
-WHERE `obligation_id`= 1' )) {
-  //o
-          //'INSERT INTO `obligation` ( `client_idmax`, `client_name`, `client_contract`, `client_contract_name`, `Bank_id`, `credit_type_id`, `interesting_type_id`, `amortization_type_id`, `desembolso_date`, `initial_value`, `cuotes_number`, `residual_number`, `dtf`, `dtf_points`, `ibr`, `ibr_points`, `tasafija`,`Stat_id`) VALUES ('. $dataObligation.')')) {
-          $this->intValidatio = 1;
+        $dataObligation = "client_idmax='".$objObligation->__getClient_idmax() ."',
+        client_name='" .$objObligation->__getClient_name() ."',
+        client_contract='".$objObligation->__getClient_contract()."',
+        client_contract_name='".$objObligation->__getClient_contract_name()."',
+        Bank_id='".$objObligation->__getBank_id()."',
+        credit_type_id='".$objObligation->__getCredit_type_id()."',
+        interesting_type_id='".$objObligation->__getInteresting_type_id()."',
+        amortization_type_id='".$objObligation->__getAmortization_type_id()."',
+        desembolso_date='".$objObligation->__getDesembolso_date()."',
+        initial_value='".$objObligation->__getInitial_value()."',
+        cuotes_number='".$objObligation->__getCuotes_number()."',
+        residual_number='".$objObligation->__getResidual_number()."',
+        dtf='".$objObligation->__getDtf()."',
+        dtf_points='".$objObligation->__getDtf_points()."',
+        ibr='".$objObligation->__getIbr()."',
+        ibr_points='".$objObligation->__getIbr_points()."',
+        tasafija='".$objObligation->__getTasafija()."',
+        Stat_id='".$objObligation->__getStat_id(). "'
+        WHERE obligation_cod ='".$objObligation->__getObligation_cod();
+
+        if ($con->query(  "UPDATE obligation SET ".$dataObligation."'" )) 
+         
+         { $this->intValidatio = 1;
+        } else {
+          $this->intValidatio = 0;
+        }
+      }
+      $con->close();
+    } catch (Exception $e) {
+      echo 'Exception captured: ', $e->getMessage(), "\n";
+      $this->intValidatio = 0;
+    }
+    return $this->intValidatio;
+  }
+  #Description: Function for delete obligation
+  public function deleteObligation($objObligation)
+  {
+    try {
+      $con = $this->objConntion->connect();
+      $con->query("SET NAMES 'utf8'");
+      if ($con != null) {
+
+        $dataObligation = "WHERE obligation_cod ='".$objObligation->__getObligation_cod()."'";
+       // echo "UPDATE obligation SET Stat_id = 4 ".$dataObligation;
+        if ($con->query(  "UPDATE obligation SET Stat_id = 4 ".$dataObligation)) 
+         
+         { $this->intValidatio = 1;
         } else {
           $this->intValidatio = 0;
         }
