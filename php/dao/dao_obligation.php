@@ -115,7 +115,7 @@ class DaoObligation
       $con = $this->objConntion->connect();
       $con->query("SET NAMES 'utf8'");
       if ($con != null) {
-        if ($result = $con->query("SELECT * FROM createobligation")) {
+        if ($result = $con->query("SELECT * FROM obligation")) {
 
           while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $this->arrayResult[] = $row;
